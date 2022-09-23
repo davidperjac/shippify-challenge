@@ -1,18 +1,17 @@
+const vehicleController = require('../controllers/vehicle-controller');
 const express = require('express');
 const router = express.Router();
 
-const vehicleController = require('../controllers/vehicle-controller');
-
-/* GET VEHICLES BY A DRIVER */
-router.get('/', vehicleController.getVehicleByDriver);
+/* GET DRIVER VEHICLES */
+router.get('/:driverId', vehicleController.getVehicleByDriver);
 
 /* CREATE A NEW VEHICLE */
-router.get('/', vehicleController.createVehicle);
+router.post('/', vehicleController.createVehicle);
 
-/* UPDATE AN EXISTING VEHICLE */
-router.get('/', vehicleController.updateVehicle);
+/* UPDATE A VEHICLE */
+router.put('/:vehicleId', vehicleController.updateVehicle);
 
 /* DELETE A VEHICLE */
-router.get('/', vehicleController.deleteVehicle);
+router.delete('/:vehicleId', vehicleController.deleteVehicle);
 
 module.exports = router;
