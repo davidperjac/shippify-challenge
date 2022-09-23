@@ -14,6 +14,7 @@ const AddPage = () => {
 						: theme.colors.gray[2],
 				borderRadius: theme.radius.md,
 				marginTop: '1rem',
+				marginBottom: '1rem',
 			})}
 		>
 			<AddForm />

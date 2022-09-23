@@ -1,5 +1,5 @@
 import { useForm } from '@mantine/form';
-import { TextInput, NumberInput, Stack, Button } from '@mantine/core';
+import { TextInput, Stack, Button } from '@mantine/core';
 
 const AddForm = () => {
 	const form = useForm({
@@ -15,7 +15,8 @@ const AddForm = () => {
 			plate: (value) => (value.length < 1 ? 'Plate can not be empty' : null),
 			model: (value) => (value.length < 1 ? 'Model can not be empty' : null),
 			type: (value) => (value.length < 1 ? 'Type can not be empty' : null),
-			capacity: (value) => (value < 1 ? 'Capacity must be at least 1' : null),
+			capacity: (value) =>
+				value.length < 2 ? 'Capacity can not be empty' : null,
 			driverName: (value) =>
 				value.length < 2 ? 'Driver Name not in records' : null,
 			driverLastName: (value) =>
@@ -45,7 +46,7 @@ const AddForm = () => {
 				placeholder="Type"
 				{...form.getInputProps('type')}
 			/>
-			<NumberInput
+			<TextInput
 				size="md"
 				m="lg"
 				label="Capacity"
