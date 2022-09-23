@@ -1,7 +1,8 @@
-import React from 'react';
+import { Center } from '@mantine/core';
+import HomeTable from './HomeTable';
 
 const HomePage = () => {
-	return <div>Home</div>;
+	return <HomeTable />;
 };
 
 export default HomePage;

@@ -7,8 +7,8 @@ const Navbar = () => {
 	return (
 		<Center
 			sx={(theme) => ({
-				borderBottom: '1px solid gray',
-				padding: '1rem',
+				// borderBottom: '1px solid gray',
+				padding: '2rem',
 			})}
 		>
 			<Group>
