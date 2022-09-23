@@ -1,19 +1,24 @@
 import { MantineProvider, Stack } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { useSelector } from 'react-redux';
 import Topbar from './components/Topbar';
 import './App.css';
 
 export default function App() {
+	const darkMode = useSelector((state) => state.theme.value);
 	return (
-		<MantineProvider>
-			<div className="app">
+		<MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light' }}>
+			<Stack
+				sx={(theme) => ({
+					height: '100vh',
+					padding: '0.6rem',
+					backgroundColor:
+						theme.colorScheme === 'dark' ? theme.colors.dark[5] : 'white',
+				})}
+			>
 				<Topbar />
-				<Navbar />
 				<Outlet />
-				<Footer />
-			</div>
+			</Stack>
 		</MantineProvider>
 	);
 }

@@ -1,6 +1,6 @@
-import { Text, Grid, Group } from '@mantine/core';
-import ThemeButton from './ThemeButton';
-import { Avatar } from '@mantine/core';
+import { Grid } from '@mantine/core';
+import Icons from './Icons';
+import Logo from './Logo';
 
 const Topbar = () => {
 	return (
@@ -11,18 +11,12 @@ const Topbar = () => {
 				padding: '0.6rem',
 				backgroundColor:
 					theme.colorScheme === 'dark'
-						? theme.colors.dark[8]
+						? theme.colors.dark[7]
 						: theme.colors.gray[2],
 			})}
 		>
-			<Group>
-				<Avatar src="/ship.png" radius="xl" />
-				<Text weight={700} size="lg">
-					Shippify
-				</Text>
-			</Group>
-
-			<ThemeButton />
+			<Logo />
+			<Icons />
 		</Grid>
 	);
 };

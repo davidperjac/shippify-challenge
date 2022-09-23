@@ -1,4 +1,4 @@
-import { Table, Stack, Select } from '@mantine/core';
+import { Table, Stack, Select, Center } from '@mantine/core';
 
 const HomeTable = () => {
 	const elements = [
@@ -9,6 +9,9 @@ const HomeTable = () => {
 		{ position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
 		{ position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
 		{ position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
+		{ position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
+		{ position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
+		{ position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
 		{ position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
 		{ position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
 		{ position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
@@ -32,19 +35,30 @@ const HomeTable = () => {
 		{ value: 'blitz', label: 'Blitz.js' },
 	];
 	return (
-		<Stack>
-			<Select data={data} label="Filter vehicles" placeholder="Pick one" />
+		<Stack
+			sx={{
+				marginTop: '3rem',
+			}}
+			spacing="xl"
+		>
+			<Center align="center">
+				<Select
+					data={data}
+					label="Filter Vehicles"
+					placeholder="Pick one driver"
+				/>
+			</Center>
 			<Table
 				sx={(theme) => ({
-					padding: '2rem',
+					width: '70%',
+					marginTop: '1rem',
+					alignSelf: 'center',
 					border: `2px solid ${
 						theme.colorScheme === 'dark'
 							? theme.colors.dark[8]
 							: theme.colors.gray[2]
 					}`,
 				})}
-				horizontalSpacing="xl"
-				verticalSpacing="md"
 				striped
 				highlightOnHover
 			>
