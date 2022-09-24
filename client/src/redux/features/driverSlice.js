@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { driversNames: [] };
+const initialState = { driversNames: [], driverSelected: '' };
 
 export const driverSlice = createSlice({
 	name: 'driver',
@@ -9,8 +9,11 @@ export const driverSlice = createSlice({
 		setDriverNames: (state, action) => {
 			state.driversNames = action.payload;
 		},
+		setDriverSelected: (state, action) => {
+			state.driverSelected = action.payload;
+		},
 	},
 });
 
-export const { setDriverNames } = driverSlice.actions;
+export const { setDriverNames, setDriverSelected } = driverSlice.actions;
 export default driverSlice.reducer;

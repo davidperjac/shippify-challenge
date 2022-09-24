@@ -22,9 +22,9 @@ const PaginationTable = () => {
 			page={activePage}
 			total={total}
 			color="red"
-			sx={(theme) => ({
+			sx={{
 				marginBottom: '2rem',
-			})}
+			}}
 		/>
 	);
 };

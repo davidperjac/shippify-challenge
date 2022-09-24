@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import themeReducer from './features/themeSlice';
 import vehicleReducer from './features/vehicleSlice';
@@ -12,4 +12,8 @@ export const store = configureStore({
 		driver: driverReducer,
 		pagination: paginationReducer,
 	},
+	middleware: getDefaultMiddleware({
+		serializableCheck: false,
+		immutableCheck: false,
+	}),
 });

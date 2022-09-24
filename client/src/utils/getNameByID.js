@@ -1,7 +1,17 @@
-export function getNameByID(driverId, driverList) {
-	driverList.forEach((driver) => {
-		if (driver.id === driverId) {
-			return driver.label;
+export function getNameByID(driverId, driversNames) {
+	for (const driver of driversNames) {
+		if (driverId === driver.id) {
+			return driver.value;
 		}
-	});
+	}
+	return null;
+}
+
+export function getIDbyName(driverName, driversNames) {
+	for (const driver of driversNames) {
+		if (driverName === driver.value) {
+			return driver.id;
+		}
+	}
+	return null;
 }

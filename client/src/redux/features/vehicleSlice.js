@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { vehicles: [] };
+const initialState = { vehicles: [], refreshVehicles: false };
 
 export const vehicleSlice = createSlice({
 	name: 'vehicle',
@@ -9,8 +9,11 @@ export const vehicleSlice = createSlice({
 		setVehicles: (state, action) => {
 			state.vehicles = action.payload;
 		},
+		setRefreshVehicles: (state) => {
+			state.refreshVehicles = !state.refreshVehicles;
+		},
 	},
 });
 
-export const { setVehicles } = vehicleSlice.actions;
+export const { setVehicles, setRefreshVehicles } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

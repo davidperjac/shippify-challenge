@@ -1,7 +1,18 @@
 import { useForm } from '@mantine/form';
 import { TextInput, Stack, Button } from '@mantine/core';
 
+import { useSelector } from 'react-redux';
+
+import vehicleApi from '../../api/vehicleApi';
+import { getIDbyName } from '../../utils/getNameByID.js';
+
+import { showNotification } from '@mantine/notifications';
+
+import { AiFillCar } from 'react-icons/ai';
+
 const AddForm = () => {
+	const driversNames = useSelector((state) => state.driver.driversNames);
+
 	const form = useForm({
 		initialValues: {
 			plate: '',
@@ -9,22 +20,39 @@ const AddForm = () => {
 			type: '',
 			capacity: '',
 			driverName: '',
-			driverLastName: '',
 		},
 		validate: {
-			plate: (value) => (value.length < 1 ? 'Plate can not be empty' : null),
-			model: (value) => (value.length < 1 ? 'Model can not be empty' : null),
-			type: (value) => (value.length < 1 ? 'Type can not be empty' : null),
+			plate: (value) => (value.length < 1 ? 'Plate cannot be empty' : null),
+			model: (value) => (value.length < 1 ? 'Model cannot be empty' : null),
+			type: (value) => (value.length < 1 ? 'Type cannot be empty' : null),
 			capacity: (value) =>
-				value.length < 2 ? 'Capacity can not be empty' : null,
+				value.length < 2 ? 'Capacity cannot be empty' : null,
 			driverName: (value) =>
-				value.length < 2 ? 'Driver Name not in records' : null,
-			driverLastName: (value) =>
-				value.length < 2 ? 'Driver Last Name not in records' : null,
+				!driversNames.some((driver) => driver.value === value)
+					? 'Driver Name not in records'
+					: null,
 		},
 	});
+
+	const handleSubmit = async (values) => {
+		const vehicle = {
+			...values,
+			driverId: getIDbyName(values.driverName, driversNames),
+		};
+
+		const res = await vehicleApi.createVehicle(vehicle);
+
+		showNotification({
+			autoClose: 5000,
+			title: 'Congratulations',
+			message: res,
+			color: 'red',
+			icon: <AiFillCar />,
+		});
+	};
+
 	return (
-		<form onSubmit={form.onSubmit(console.log)}>
+		<form onSubmit={form.onSubmit(handleSubmit)}>
 			<TextInput
 				size="md"
 				m="lg"
@@ -59,13 +87,6 @@ const AddForm = () => {
 				label="Driver Name"
 				placeholder="Driver Name"
 				{...form.getInputProps('driverName')}
-			/>
-			<TextInput
-				size="md"
-				m="lg"
-				label="Driver Last Name"
-				placeholder="Driver Last Name"
-				{...form.getInputProps('driverLastName')}
 			/>
 			<Stack>
 				<Button type="submit" mt="sm" color="red" m="lg">
