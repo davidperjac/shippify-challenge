@@ -10,7 +10,7 @@ export default function App() {
 		<MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light' }}>
 			<Stack
 				sx={(theme) => ({
-					height: '120vh',
+					height: '100%',
 					padding: '0.6rem',
 					backgroundColor:
 						theme.colorScheme === 'dark' ? theme.colors.dark[5] : 'white',

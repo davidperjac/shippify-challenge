@@ -1,46 +1,39 @@
-import { Table, Stack, Select, Center } from '@mantine/core';
+import { Table, Stack } from '@mantine/core';
+
 import vehicleApi from '../../api/vehicleApi';
 import { useEffect, useState } from 'react';
-import driverApi from '../../api/driverApi';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setVehicles } from '../../redux/features/vehicleSlice';
+import PaginationTable from './PaginationTable';
+import DriverSelect from './DriverSelect';
+
+import { getNameByID } from '../../utils/getNameByID';
 
 const HomeTable = () => {
-	const [vehicles, setVehicles] = useState([]);
-	const [drivers, setDrivers] = useState([]);
-	const [driverSearched, setDriverSearched] = useState([]);
+	const dispatch = useDispatch();
+	const { activePage } = useSelector((state) => state.pagination);
+	// const vehicles = useSelector((state) => state.vehicle.vehicles);
 
-	const data = [
-		{ value: 'react', label: 'React' },
-		{ value: 'ng', label: 'Angular' },
-		{ value: 'svelte', label: 'Svelte' },
-		{ value: 'vue', label: 'Vue' },
-		{ value: 'riot', label: 'Riot' },
-		{ value: 'next', label: 'Next.js' },
-		{ value: 'blitz', label: 'Blitz.js' },
-	];
+	const [vehicles, setVehicles] = useState([]);
 
 	useEffect(() => {
 		const getAllVehicles = async () => {
 			try {
 				const res = await vehicleApi.getAllVehicles();
-				setVehicles(res);
+				const limitedVehicles = res.slice(
+					activePage * 100 - 100,
+					activePage * 100
+				);
+				console.log(res);
+				setVehicles(limitedVehicles);
+				// dispatch(setVehicles(res));
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		getAllVehicles();
-	}, []);
-
-	useEffect(() => {
-		const getAllDrivers = async () => {
-			try {
-				const res = await driverApi.getAllDrivers();
-				console.log(res);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getAllDrivers();
-	}, []);
+	}, [activePage]);
 
 	return (
 		<Stack
@@ -50,14 +43,7 @@ const HomeTable = () => {
 			spacing="xl"
 			align="center"
 		>
-			<Select
-				allowDeselect
-				data={data}
-				searchValue={driverSearched}
-				onSearchChange={setDriverSearched}
-				label="Filter Vehicles"
-				placeholder="Pick one driver"
-			/>
+			<DriverSelect />
 			<Table
 				sx={(theme) => ({
 					width: '70%',
@@ -74,6 +60,7 @@ const HomeTable = () => {
 			>
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>Plate</th>
 						<th>Model</th>
 						<th>Type</th>
@@ -82,17 +69,19 @@ const HomeTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{/* {vehicles.map((vehicle) => (
-						<tr key={vehicle.driver_id}>
+					{vehicles.map((vehicle, index) => (
+						<tr key={index}>
+							<td>{vehicle.id}</td>
 							<td>{vehicle.plate}</td>
 							<td>{vehicle.model}</td>
 							<td>{vehicle.type}</td>
 							<td>{vehicle.capacity}</td>
 							<td>{vehicle.driver_id}</td>
 						</tr>
-					))} */}
+					))}
 				</tbody>
 			</Table>
+			<PaginationTable />
 		</Stack>
 	);
 };
