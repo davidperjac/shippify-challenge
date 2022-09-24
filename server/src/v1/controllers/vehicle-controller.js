@@ -1,11 +1,20 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+exports.getAllVehicles = async (req, res) => {
+	try {
+		const vehicles = await prisma.vehicle.findMany();
+		res.status(200).json(vehicles);
+	} catch (error) {
+		res.status(500).json({ error });
+	}
+};
+
 exports.getVehicleByDriver = async (req, res) => {
 	try {
 		const { driverId } = req.params;
 		const driverVehicles = await prisma.vehicle.findMany({
-			where: { driver_id: driverId },
+			where: { driver_id: parseInt(driverId) },
 		});
 		res.status(200).json(driverVehicles);
 	} catch (error) {
@@ -89,7 +98,7 @@ exports.deleteVehicle = async (req, res) => {
 		const { vehicleId } = req.params;
 		await prisma.vehicle.delete({
 			where: {
-				id: vehicleId,
+				id: parseInt(vehicleId),
 			},
 		});
 		res.status(200).send('Vehicle deleted successfully');

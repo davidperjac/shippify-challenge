@@ -2,6 +2,9 @@ const vehicleController = require('../controllers/vehicle-controller');
 const express = require('express');
 const router = express.Router();
 
+/* GET ALL VEHICLES */
+router.get('/', vehicleController.getAllVehicles);
+
 /* GET DRIVER VEHICLES */
 router.get('/:driverId', vehicleController.getVehicleByDriver);
 
