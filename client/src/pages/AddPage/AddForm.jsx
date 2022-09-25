@@ -10,7 +10,10 @@ import { showNotification } from '@mantine/notifications';
 
 import { AiFillCar } from 'react-icons/ai';
 
+import { useNavigate } from 'react-router-dom';
+
 const AddForm = () => {
+	const navigate = useNavigate();
 	const driversNames = useSelector((state) => state.driver.driversNames);
 
 	const form = useForm({
@@ -41,6 +44,8 @@ const AddForm = () => {
 		};
 
 		const res = await vehicleApi.createVehicle(vehicle);
+
+		navigate('/');
 
 		showNotification({
 			autoClose: 5000,

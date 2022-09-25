@@ -4,10 +4,7 @@ import vehicleApi from '../../api/vehicleApi';
 import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	setVehicles,
-	setRefreshVehicles,
-} from '../../redux/features/vehicleSlice';
+import { setVehicles } from '../../redux/features/vehicleSlice';
 import { setTotalPage } from '../../redux/features/paginationSlice';
 import PaginationTable from './PaginationTable';
 import DriverSelect from './DriverSelect';

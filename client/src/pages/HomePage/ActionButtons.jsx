@@ -5,7 +5,7 @@ import { Group } from '@mantine/core';
 const ActionButtons = ({ id }) => {
 	return (
 		<Group>
-			<EditButton />
+			<EditButton id={id} />
 			<DeleteButton id={id} />
 		</Group>
 	);

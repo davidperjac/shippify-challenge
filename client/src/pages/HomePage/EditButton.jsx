@@ -1,7 +1,7 @@
 import { ActionIcon, Tooltip } from '@mantine/core';
 import { MdEdit } from 'react-icons/md';
 
-const EditButton = () => {
+const EditButton = ({ id }) => {
 	return (
 		<Tooltip label="Edit" withArrow>
 			<ActionIcon variant="filled" color="blue">

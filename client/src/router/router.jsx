@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
 				path: '/add',
 				element: <AddPage />,
 			},
+			{
+				path: '/edit',
+				element: <AddPage />,
+			},
 		],
 	},
 ]);
