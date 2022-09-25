@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	vehicles: [],
 	refreshVehicles: false,
-	editedVehicle: {},
+	editedVehicle: null,
 };
 
 export const vehicleSlice = createSlice({
@@ -22,5 +22,6 @@ export const vehicleSlice = createSlice({
 	},
 });
 
-export const { setVehicles, setRefreshVehicles } = vehicleSlice.actions;
+export const { setVehicles, setRefreshVehicles, setEditedVehicle } =
+	vehicleSlice.actions;
 export default vehicleSlice.reducer;

@@ -43,7 +43,6 @@ exports.createVehicle = async (req, res) => {
 exports.updateVehicle = async (req, res) => {
 	try {
 		const { first_name, last_name } = req.body;
-
 		const driverId = await prisma.user.findUnique({
 			where: {
 				first_name: first_name,
@@ -53,11 +52,8 @@ exports.updateVehicle = async (req, res) => {
 				driver_id: true,
 			},
 		});
-
 		if (driverId === null) return res.status(400).send('Driver does not exist');
-
 		const { plate, model, type, capacity, id } = req.body;
-
 		await prisma.vehicle.update({
 			where: {
 				id: id,
@@ -70,7 +66,6 @@ exports.updateVehicle = async (req, res) => {
 				driver_id: driverId,
 			},
 		});
-
 		res.status(200).send('Vehicle updated successfully');
 	} catch (error) {
 		res.status(500).json({ error });

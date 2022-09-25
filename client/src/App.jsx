@@ -1,5 +1,5 @@
-import { MantineProvider, Stack } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { MantineProvider, Stack } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Topbar from './components/Topbar';

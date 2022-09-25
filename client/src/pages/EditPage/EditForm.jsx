@@ -1,15 +1,15 @@
 import { showNotification } from '@mantine/notifications';
-import { getIDbyName } from '../../utils/getNameByID.js';
 import { TextInput, Stack, Button } from '@mantine/core';
+import { getIDbyName } from '../../utils/getNameByID.js';
 import { useNavigate } from 'react-router-dom';
 import vehicleApi from '../../api/vehicleApi';
 import { AiFillCar } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
 
-const AddForm = () => {
+const EditForm = () => {
 	const navigate = useNavigate();
-	const driversNames = useSelector((state) => state.driver.driversNames);
+	const editedVehicleID = useSelector((state) => state.vehicle.editedVehicle);
 
 	const form = useForm({
 		initialValues: {
@@ -38,7 +38,7 @@ const AddForm = () => {
 			driverId: getIDbyName(values.driverName, driversNames),
 		};
 
-		const res = await vehicleApi.createVehicle(vehicle);
+		const res = await vehicleApi.updateVehicle(vehicle);
 
 		navigate('/');
 
@@ -97,4 +97,4 @@ const AddForm = () => {
 	);
 };
 
-export default AddForm;
+export default EditForm;

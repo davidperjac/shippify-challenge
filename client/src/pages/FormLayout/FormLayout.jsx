@@ -14,7 +14,7 @@ const FormLayout = (props) => {
 						: theme.colors.gray[2],
 				borderRadius: theme.radius.md,
 				marginTop: '4rem',
-				marginBottom: '5rem',
+				marginBottom: '3rem',
 			})}
 		>
 			{props.children}
