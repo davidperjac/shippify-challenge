@@ -1,24 +1,30 @@
-import { setEditedVehicle } from '../../redux/features/vehicleSlice';
-import { ActionIcon, Tooltip } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { ActionIcon, Tooltip, Modal } from '@mantine/core';
+import EditForm from '../EditPage/EditForm';
 import { MdEdit } from 'react-icons/md';
+import { useState } from 'react';
 
 const EditButton = ({ id }) => {
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const [opened, setOpened] = useState(false);
 
 	const handleClick = () => {
-		dispatch(setEditedVehicle(id));
-		navigate('/edit');
+		setOpened(true);
 	};
 
 	return (
-		<Tooltip label="Edit" withArrow>
-			<ActionIcon variant="filled" color="blue" onClick={handleClick}>
-				<MdEdit size={20} />
-			</ActionIcon>
-		</Tooltip>
+		<>
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				title="Edit a vehicle!"
+			>
+				<EditForm id={id} setOpened={setOpened} />
+			</Modal>
+			<Tooltip label="Edit" withArrow>
+				<ActionIcon variant="filled" color="blue" onClick={handleClick}>
+					<MdEdit size={20} />
+				</ActionIcon>
+			</Tooltip>
+		</>
 	);
 };
 

@@ -1,17 +1,17 @@
 import { ActionIcon, Tooltip } from '@mantine/core';
-import { AiFillHome } from 'react-icons/ai';
+import { BiTable } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
-const HomeButton = () => {
+const TableButton = () => {
 	return (
-		<Tooltip label="Home" withArrow>
+		<Tooltip label="Table" withArrow>
 			<Link to="/">
 				<ActionIcon variant="filled" color="red">
-					<AiFillHome size={30} />
+					<BiTable size={30} />
 				</ActionIcon>
 			</Link>
 		</Tooltip>
 	);
 };
 
-export default HomeButton;
+export default TableButton;

@@ -1,17 +1,18 @@
+import { setRefreshVehicles } from '../../redux/features/vehicleSlice';
 import { showNotification } from '@mantine/notifications';
 import { TextInput, Stack, Button } from '@mantine/core';
 import { getIDbyName } from '../../utils/getNameByID.js';
+import { useSelector, useDispatch } from 'react-redux';
 import { getNameByID } from '../../utils/getNameByID';
 import { useNavigate } from 'react-router-dom';
 import vehicleApi from '../../api/vehicleApi';
 import { AiFillCar } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
 import { useEffect } from 'react';
 
-const EditForm = () => {
+const EditForm = ({ id, setOpened }) => {
 	const navigate = useNavigate();
-	const editedVehicleID = useSelector((state) => state.vehicle.editedVehicle);
+	const dispatch = useDispatch();
 	const driversNames = useSelector((state) => state.driver.driversNames);
 
 	const form = useForm({
@@ -36,9 +37,9 @@ const EditForm = () => {
 	});
 
 	useEffect(() => {
-		if (editedVehicleID) {
+		if (id) {
 			const getVehicleData = async () => {
-				const res = await vehicleApi.getVehicle(editedVehicleID);
+				const res = await vehicleApi.getVehicle(id);
 				form.setValues({
 					plate: res.plate,
 					model: res.model,
@@ -58,11 +59,7 @@ const EditForm = () => {
 			...values,
 			driverId: getIDbyName(values.driverName, driversNames),
 		};
-
-		const res = await vehicleApi.updateVehicle(vehicle, editedVehicleID);
-
-		navigate('/');
-
+		const res = await vehicleApi.updateVehicle(vehicle, id);
 		showNotification({
 			autoClose: 5000,
 			title: 'Congratulations',
@@ -70,6 +67,8 @@ const EditForm = () => {
 			color: 'red',
 			icon: <AiFillCar />,
 		});
+		setOpened(false);
+		dispatch(setRefreshVehicles());
 	};
 
 	return (

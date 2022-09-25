@@ -1,12 +1,12 @@
 import ThemeButton from './ThemeButton';
 import { Group } from '@mantine/core';
-import HomeButton from './HomeButton';
+import TableButton from './TableButton';
 import AddButton from './AddButton';
 
 const TopbarIcons = () => {
 	return (
 		<Group>
-			<HomeButton />
+			<TableButton />
 			<AddButton />
 			<ThemeButton />
 		</Group>
