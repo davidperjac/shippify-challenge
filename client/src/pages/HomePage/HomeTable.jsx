@@ -1,26 +1,23 @@
+import { setTotalPage } from '../../redux/features/paginationSlice';
+import { setVehicles } from '../../redux/features/vehicleSlice';
 import { Table, Stack, Loader, Text } from '@mantine/core';
-
+import { useDispatch, useSelector } from 'react-redux';
+import PaginationTable from './PaginationTable';
 import vehicleApi from '../../api/vehicleApi';
 import { useEffect, useState } from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { setVehicles } from '../../redux/features/vehicleSlice';
-import { setTotalPage } from '../../redux/features/paginationSlice';
-import PaginationTable from './PaginationTable';
 import DriverSelect from './DriverSelect';
-import ActionButtons from './ActionButtons';
-
-import { getNameByID } from '../../utils/getNameByID';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
 
 const HomeTable = () => {
-	const dispatch = useDispatch();
-	const { activePage } = useSelector((state) => state.pagination);
-	const vehicles = useSelector((state) => state.vehicle.vehicles);
 	const refreshVehicles = useSelector((state) => state.vehicle.refreshVehicles);
-	const driversNames = useSelector((state) => state.driver.driversNames);
 	const driverSelected = useSelector((state) => state.driver.driverSelected);
+	const driversNames = useSelector((state) => state.driver.driversNames);
+	const activePage = useSelector((state) => state.pagination.activePage);
+	const vehicles = useSelector((state) => state.vehicle.vehicles);
 
 	const [loading, setLoading] = useState(true);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const getAllVehicles = async () => {
@@ -70,7 +67,6 @@ const HomeTable = () => {
 			{loading ? (
 				<Loader
 					color="red"
-					variant="bars"
 					sx={{
 						padding: '14rem',
 						marginBottom: '6rem',
@@ -108,37 +104,12 @@ const HomeTable = () => {
 						>
 							{driversNames.length > 0 && (
 								<>
-									<thead>
-										<tr>
-											<th>ID</th>
-											<th>Plate</th>
-											<th>Model</th>
-											<th>Type</th>
-											<th>Capacity</th>
-											<th>Driver</th>
-											<th>Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-										{vehicles.map((vehicle, index) => (
-											<tr key={index}>
-												<td>{vehicle.id}</td>
-												<td>{vehicle.plate}</td>
-												<td>{vehicle.model}</td>
-												<td>{vehicle.type}</td>
-												<td>{vehicle.capacity}</td>
-												<td>{getNameByID(vehicle.driver_id, driversNames)}</td>
-												<td>
-													<ActionButtons id={vehicle.id} />
-												</td>
-											</tr>
-										))}
-									</tbody>
+									<TableHead />
+									<TableBody vehicles={vehicles} driversNames={driversNames} />
 								</>
 							)}
 						</Table>
 					)}
-
 					<PaginationTable />
 				</>
 			)}

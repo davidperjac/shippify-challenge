@@ -1,15 +1,18 @@
 import { showNotification } from '@mantine/notifications';
 import { TextInput, Stack, Button } from '@mantine/core';
 import { getIDbyName } from '../../utils/getNameByID.js';
+import { getNameByID } from '../../utils/getNameByID';
 import { useNavigate } from 'react-router-dom';
 import vehicleApi from '../../api/vehicleApi';
 import { AiFillCar } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
 
 const EditForm = () => {
 	const navigate = useNavigate();
 	const editedVehicleID = useSelector((state) => state.vehicle.editedVehicle);
+	const driversNames = useSelector((state) => state.driver.driversNames);
 
 	const form = useForm({
 		initialValues: {
@@ -32,13 +35,31 @@ const EditForm = () => {
 		},
 	});
 
+	useEffect(() => {
+		if (editedVehicleID) {
+			const getVehicleData = async () => {
+				const res = await vehicleApi.getVehicle(editedVehicleID);
+				form.setValues({
+					plate: res.plate,
+					model: res.model,
+					type: res.type,
+					capacity: res.capacity,
+					driverName: getNameByID(res.driver_id, driversNames),
+				});
+			};
+			getVehicleData();
+		} else {
+			navigate('/');
+		}
+	}, []);
+
 	const handleSubmit = async (values) => {
 		const vehicle = {
 			...values,
 			driverId: getIDbyName(values.driverName, driversNames),
 		};
 
-		const res = await vehicleApi.updateVehicle(vehicle);
+		const res = await vehicleApi.updateVehicle(vehicle, editedVehicleID);
 
 		navigate('/');
 

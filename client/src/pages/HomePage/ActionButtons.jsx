@@ -1,5 +1,5 @@
-import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 import { Group } from '@mantine/core';
 
 const ActionButtons = ({ id }) => {

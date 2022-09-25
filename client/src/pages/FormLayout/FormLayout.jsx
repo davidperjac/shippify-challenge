@@ -13,7 +13,7 @@ const FormLayout = (props) => {
 						? theme.colors.dark[6]
 						: theme.colors.gray[2],
 				borderRadius: theme.radius.md,
-				marginTop: '4rem',
+				marginTop: '3rem',
 				marginBottom: '3rem',
 			})}
 		>

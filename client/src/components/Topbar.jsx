@@ -1,5 +1,5 @@
+import TopbarIcons from './TopbarIcons';
 import { Grid } from '@mantine/core';
-import Icons from './Icons';
 import Logo from './Logo';
 
 const Topbar = () => {
@@ -16,7 +16,7 @@ const Topbar = () => {
 			})}
 		>
 			<Logo />
-			<Icons />
+			<TopbarIcons />
 		</Grid>
 	);
 };

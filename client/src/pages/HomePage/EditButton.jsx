@@ -1,8 +1,8 @@
-import { ActionIcon, Tooltip } from '@mantine/core';
-import { MdEdit } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 import { setEditedVehicle } from '../../redux/features/vehicleSlice';
+import { ActionIcon, Tooltip } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { MdEdit } from 'react-icons/md';
 
 const EditButton = ({ id }) => {
 	const navigate = useNavigate();
