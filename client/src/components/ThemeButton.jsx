@@ -1,11 +1,10 @@
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { setTheme } from '../redux/features/themeSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { ActionIcon, Tooltip } from '@mantine/core';
+import { useRedux } from '../hooks/useRedux';
 
 const ThemeButton = () => {
-	const dispatch = useDispatch();
-	const darkMode = useSelector((state) => state.theme.value);
+	const { dispatch, darkMode } = useRedux();
 
 	const handleClick = () => {
 		dispatch(setTheme());

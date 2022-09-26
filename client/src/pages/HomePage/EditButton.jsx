@@ -1,5 +1,5 @@
 import { ActionIcon, Tooltip, Modal } from '@mantine/core';
-import EditForm from '../EditPage/EditForm';
+import EditForm from './EditForm';
 import { MdEdit } from 'react-icons/md';
 import { useState } from 'react';
 

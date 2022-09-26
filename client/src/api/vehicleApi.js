@@ -1,8 +1,7 @@
 import axiosClient from './axiosClient';
 
 const vehicleApi = {
-	getAllVehicles: () => axiosClient.get('vehicle'),
-	getVehicle: (vehicleId) => axiosClient.get(`vehicle/${vehicleId}`),
+	getAllVehicles: (params) => axiosClient.get('vehicle', params),
 	createVehicle: (params) => axiosClient.post('vehicle', params),
 	updateVehicle: (params, vehicleId) =>
 		axiosClient.put(`vehicle/${vehicleId}`, params),

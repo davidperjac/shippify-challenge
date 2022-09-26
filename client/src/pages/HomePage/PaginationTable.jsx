@@ -1,11 +1,9 @@
 import { setActivePage } from '../../redux/features/paginationSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRedux } from '../../hooks/useRedux';
 import { Pagination } from '@mantine/core';
 
 const PaginationTable = () => {
-	const total = useSelector((state) => state.pagination.total);
-	const activePage = useSelector((state) => state.pagination.activePage);
-	const dispatch = useDispatch();
+	const { total, activePage, dispatch } = useRedux();
 
 	const handleChange = (page) => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -19,7 +17,8 @@ const PaginationTable = () => {
 			total={total}
 			color="red"
 			sx={{
-				marginBottom: '2rem',
+				padding: '8rem',
+				marginBottom: '3.45rem',
 			}}
 		/>
 	);

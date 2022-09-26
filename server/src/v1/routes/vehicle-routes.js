@@ -5,9 +5,6 @@ const router = express.Router();
 /* GET ALL VEHICLES */
 router.get('/', vehicleController.getAllVehicles);
 
-/* GET SINGLE VEHICLE */
-router.get('/:vehicleId', vehicleController.getVehicleByID);
-
 /* CREATE A NEW VEHICLE */
 router.post('/', vehicleController.createVehicle);
 

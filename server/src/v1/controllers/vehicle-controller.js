@@ -10,18 +10,6 @@ exports.getAllVehicles = async (req, res) => {
 	}
 };
 
-exports.getVehicleByID = async (req, res) => {
-	try {
-		const { vehicleId } = req.params;
-		const vehicle = await prisma.vehicle.findUnique({
-			where: { id: parseInt(vehicleId) },
-		});
-		res.status(200).json(vehicle);
-	} catch (error) {
-		res.status(500).json({ error });
-	}
-};
-
 exports.createVehicle = async (req, res) => {
 	try {
 		const { plate, model, type, capacity, driverId } = req.body;

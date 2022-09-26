@@ -1,16 +1,30 @@
+import { ActionIcon, Tooltip, Modal } from '@mantine/core';
 import { MdOutlineAddCircle } from 'react-icons/md';
-import { ActionIcon, Tooltip } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import AddForm from '../components/AddForm';
+import { useState } from 'react';
 
 const AddButton = () => {
+	const [opened, setOpened] = useState(false);
+
+	const handleClick = () => {
+		setOpened(true);
+	};
+
 	return (
-		<Tooltip label="Add Vehicle" withArrow>
-			<Link to="/add">
-				<ActionIcon variant="filled" color="red">
+		<>
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				title="Create a vehicle!"
+			>
+				<AddForm setOpened={setOpened} />
+			</Modal>
+			<Tooltip label="Add Vehicle" withArrow>
+				<ActionIcon variant="filled" color="red" onClick={handleClick}>
 					<MdOutlineAddCircle size={30} />
 				</ActionIcon>
-			</Link>
-		</Tooltip>
+			</Tooltip>
+		</>
 	);
 };
 

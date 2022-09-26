@@ -7,6 +7,7 @@ const TableHead = () => {
 				<th>Model</th>
 				<th>Type</th>
 				<th>Capacity</th>
+				<th>Driver Status</th>
 				<th>Driver</th>
 				<th>Actions</th>
 			</tr>

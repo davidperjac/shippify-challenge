@@ -1,60 +1,16 @@
-import { setTotalPage } from '../../redux/features/paginationSlice';
-import { setVehicles } from '../../redux/features/vehicleSlice';
 import { Table, Stack, Loader, Text } from '@mantine/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useVehicles } from '../../hooks/useVehicles';
 import PaginationTable from './PaginationTable';
-import vehicleApi from '../../api/vehicleApi';
-import { useEffect, useState } from 'react';
+import { useRedux } from '../../hooks/useRedux';
 import DriverSelect from './DriverSelect';
-import TableHead from './TableHead';
 import TableBody from './TableBody';
+import TableHead from './TableHead';
+import { useState } from 'react';
 
 const HomeTable = () => {
-	const refreshVehicles = useSelector((state) => state.vehicle.refreshVehicles);
-	const driverSelected = useSelector((state) => state.driver.driverSelected);
-	const driversNames = useSelector((state) => state.driver.driversNames);
-	const activePage = useSelector((state) => state.pagination.activePage);
-	const vehicles = useSelector((state) => state.vehicle.vehicles);
-
+	const { driversNames, vehicles } = useRedux();
 	const [loading, setLoading] = useState(true);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const getAllVehicles = async () => {
-			try {
-				if (driversNames.length > 0) {
-					const res = await vehicleApi.getAllVehicles();
-
-					const filteredNames = driversNames.filter((driver) => {
-						return driver.value
-							.toUpperCase()
-							.includes(driverSelected.toUpperCase());
-					});
-
-					const filteredVehicles = res.filter((vehicle) => {
-						for (const driver of filteredNames) {
-							if (driver.id === vehicle.driver_id) {
-								return vehicle;
-							}
-						}
-					});
-
-					const limitedVehicles = filteredVehicles.slice(
-						activePage * 100 - 100,
-						activePage * 100
-					);
-
-					dispatch(setVehicles(limitedVehicles));
-					dispatch(setTotalPage(Math.ceil(filteredVehicles.length / 100)));
-					setLoading(false);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getAllVehicles();
-	}, [activePage, driverSelected, driversNames, refreshVehicles]);
-
+	useVehicles(setLoading);
 	return (
 		<Stack
 			sx={{
@@ -90,9 +46,11 @@ const HomeTable = () => {
 						</Text>
 					) : (
 						<Table
+							verticalSpacing="md"
+							horizontalSpacing="lg"
 							sx={(theme) => ({
 								marginTop: '1rem',
-								width: '60%',
+								width: '85%',
 								border: `2px solid ${
 									theme.colorScheme === 'dark'
 										? theme.colors.dark[8]

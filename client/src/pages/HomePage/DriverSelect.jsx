@@ -1,32 +1,35 @@
 import { setDriverSelected } from '../../redux/features/driverSlice';
 import { TextInput, Button, Group } from '@mantine/core';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { useRedux } from '../../hooks/useRedux';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useDrivers } from '../../hooks/useDrivers';
 
 const DriverSelect = () => {
-	const driverSelected = useSelector((state) => state.driver.driverSelected);
-	const [driver, setDriver] = useState(driverSelected);
-	const dispatch = useDispatch();
+	const { driverSelected, dispatch } = useRedux();
+	const [driverInput, setDriver] = useState(driverSelected);
 
 	const handleChange = (e) => {
 		setDriver(e.currentTarget.value);
 	};
 
-	useEffect(() => {
-		if (driver === '') {
-			dispatch(setDriverSelected(driver));
-		}
-	}, [driver]);
-
 	const searchDriver = () => {
-		dispatch(setDriverSelected(driver));
+		dispatch(setDriverSelected(driverInput));
 	};
+
+	useEffect(() => {
+		if (driverInput === '') {
+			dispatch(setDriverSelected(driverInput));
+		}
+	}, [driverInput]);
+
+	useDrivers();
 
 	return (
 		<Group>
 			<TextInput
-				value={driver}
+				value={driverInput}
 				onChange={handleChange}
 				placeholder="Pick one driver"
 				label="Filter Vehicles"
