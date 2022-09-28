@@ -1,8 +1,8 @@
 import { setDriverNames } from '../redux/features/driverSlice';
+import { parseDrivers } from '../utils/parseDrivers';
 import { useDispatch } from 'react-redux';
 import driverApi from '../api/driverApi';
 import { useEffect } from 'react';
-import { parseDrivers } from '../utils/parseDrivers';
 
 export const useDrivers = () => {
 	const dispatch = useDispatch();

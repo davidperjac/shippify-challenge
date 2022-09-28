@@ -2,7 +2,7 @@ const vehicleController = require('../controllers/vehicle-controller');
 const express = require('express');
 const router = express.Router();
 
-/* GET ALL VEHICLES */
+/* GET ALL VEHICLES BY THE CURRENT PAGE*/
 router.get('/:activePage', vehicleController.getVehiclesByPage);
 
 /* CREATE A NEW VEHICLE */

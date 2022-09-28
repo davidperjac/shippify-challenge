@@ -1,16 +1,11 @@
 import { Text, Group, Avatar } from '@mantine/core';
-import { Link } from 'react-router-dom';
 
 const Logo = () => {
 	return (
 		<Group>
-			<Link to="/">
-				<Avatar src="/ship.png" radius="xl" />
-			</Link>
+			<Avatar src="/ship.png" radius="xl" />
 			<Text
 				weight={700}
-				to="/"
-				component={Link}
 				size="lg"
 				sx={(theme) => ({
 					color:

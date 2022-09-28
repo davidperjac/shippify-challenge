@@ -1,6 +1,7 @@
 import { setRefreshVehicles } from '../redux/features/vehicleSlice';
 import { showNotification } from '@mantine/notifications';
 import { getIDbyName } from '../utils/getNameByID.js';
+import { useNotification } from './useNotification';
 import vehicleApi from '../api/vehicleApi';
 import { AiFillCar } from 'react-icons/ai';
 import { useForm } from '@mantine/form';
@@ -8,6 +9,13 @@ import { useRedux } from './useRedux';
 
 export const useFormVehicle = (setOpened, id) => {
 	const { driversNames, dispatch } = useRedux();
+
+	const getVehicle = (values) => {
+		return {
+			...values,
+			driverId: getIDbyName(values.driverName, driversNames),
+		};
+	};
 
 	const form = useForm({
 		initialValues: {
@@ -29,37 +37,21 @@ export const useFormVehicle = (setOpened, id) => {
 					: null,
 		},
 	});
+
 	const handleAddSubmit = async (values) => {
 		setOpened(false);
-		const vehicle = {
-			...values,
-			driverId: getIDbyName(values.driverName, driversNames),
-		};
+		const vehicle = getVehicle(values);
 		const res = await vehicleApi.createVehicle(vehicle);
+		useNotification(res);
 		dispatch(setRefreshVehicles());
-		showNotification({
-			autoClose: 5000,
-			title: 'Congratulations',
-			message: res,
-			color: 'red',
-			icon: <AiFillCar />,
-		});
 	};
+
 	const handleEditSubmit = async (values) => {
 		setOpened(false);
-		const vehicle = {
-			...values,
-			driverId: getIDbyName(values.driverName, driversNames),
-		};
+		const vehicle = getVehicle(values);
 		const res = await vehicleApi.updateVehicle(vehicle, id);
+		useNotification(res);
 		dispatch(setRefreshVehicles());
-		showNotification({
-			autoClose: 5000,
-			title: 'Congratulations',
-			message: res,
-			color: 'red',
-			icon: <AiFillCar />,
-		});
 	};
 	return { form, handleAddSubmit, handleEditSubmit };
 };

@@ -4,7 +4,6 @@ const Footer = () => {
 	return (
 		<Center
 			sx={(theme) => ({
-				// marginTop: '5rem',
 				padding: '1rem',
 				backgroundColor:
 					theme.colorScheme === 'dark'

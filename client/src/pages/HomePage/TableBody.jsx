@@ -3,6 +3,10 @@ import { Group, Badge } from '@mantine/core';
 import ActionButtons from './ActionButtons';
 
 const TableBody = ({ vehicles, driversNames }) => {
+	const getStatus = (vehicle) => {
+		return getStatusByID(vehicle.driver_id, driversNames);
+	};
+
 	return (
 		<tbody>
 			{vehicles.map((vehicle, index) => (
@@ -15,13 +19,9 @@ const TableBody = ({ vehicles, driversNames }) => {
 					<td>
 						<Badge
 							variant="filled"
-							color={
-								getStatusByID(vehicle.driver_id, driversNames) === 'active'
-									? 'green'
-									: 'red'
-							}
+							color={getStatus(vehicle) === 'active' ? 'green' : 'red'}
 						>
-							{getStatusByID(vehicle.driver_id, driversNames)}
+							{getStatus(vehicle)}
 						</Badge>
 					</td>
 					<td>

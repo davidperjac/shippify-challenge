@@ -1,10 +1,9 @@
 import { setDriverSelected } from '../../redux/features/driverSlice';
 import { TextInput, Button, Group } from '@mantine/core';
+import { useDrivers } from '../../hooks/useDrivers';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { useRedux } from '../../hooks/useRedux';
 import { useState, useEffect } from 'react';
-
-import { useDrivers } from '../../hooks/useDrivers';
 
 const DriverSelect = () => {
 	const { driverSelected, dispatch } = useRedux();
