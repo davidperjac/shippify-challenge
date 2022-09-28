@@ -17,8 +17,8 @@ const PaginationTable = () => {
 			total={total}
 			color="red"
 			sx={{
-				padding: '8rem',
-				marginBottom: '3.45rem',
+				padding: '2rem',
+				marginBottom: '2rem',
 			}}
 		/>
 	);

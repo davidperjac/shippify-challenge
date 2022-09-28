@@ -8,6 +8,7 @@ const Topbar = () => {
 			justify="space-around"
 			align="center"
 			sx={(theme) => ({
+				width: '100%',
 				padding: '0.6rem',
 				backgroundColor:
 					theme.colorScheme === 'dark'

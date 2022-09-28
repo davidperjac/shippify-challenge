@@ -23,27 +23,33 @@ const DriverSelect = () => {
 		}
 	}, [driverInput]);
 
-	useDrivers();
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		searchDriver();
+	};
 
 	return (
-		<Group>
-			<TextInput
-				value={driverInput}
-				onChange={handleChange}
-				placeholder="Pick one driver"
-				label="Filter Vehicles"
-				icon={<BsFillPersonFill />}
-			/>
-			<Button
-				color="red"
-				sx={{
-					marginTop: '1.5rem',
-				}}
-				onClick={searchDriver}
-			>
-				Search
-			</Button>
-		</Group>
+		<form onSubmit={handleSubmit}>
+			<Group>
+				<TextInput
+					value={driverInput}
+					onChange={handleChange}
+					placeholder="Pick one driver"
+					label="Filter Drivers"
+					icon={<BsFillPersonFill />}
+				/>
+				<Button
+					type="submit"
+					color="red"
+					sx={{
+						marginTop: '1.5rem',
+					}}
+					onClick={searchDriver}
+				>
+					Search
+				</Button>
+			</Group>
+		</form>
 	);
 };
 

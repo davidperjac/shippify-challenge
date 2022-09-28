@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 const driverApi = {
-	getAllDrivers: () => axiosClient.get('driver'),
+	getAllDrivers: (activePage) => axiosClient.get(`driver/${activePage}`),
 };
 
 export default driverApi;
