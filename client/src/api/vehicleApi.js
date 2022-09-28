@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 const vehicleApi = {
-	getAllVehicles: (params) => axiosClient.get('vehicle', params),
+	getVehiclesByPage: (activePage) => axiosClient.get(`vehicle/${activePage}`),
 	createVehicle: (params) => axiosClient.post('vehicle', params),
 	updateVehicle: (params, vehicleId) =>
 		axiosClient.put(`vehicle/${vehicleId}`, params),

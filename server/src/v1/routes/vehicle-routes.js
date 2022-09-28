@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 /* GET ALL VEHICLES */
-router.get('/', vehicleController.getAllVehicles);
+router.get('/:activePage', vehicleController.getVehiclesByPage);
 
 /* CREATE A NEW VEHICLE */
 router.post('/', vehicleController.createVehicle);

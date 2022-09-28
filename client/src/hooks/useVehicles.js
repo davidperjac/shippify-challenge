@@ -17,7 +17,8 @@ export const useVehicles = (setLoading) => {
 		const getAllVehicles = async () => {
 			try {
 				if (driversNames.length > 0) {
-					const res = await vehicleApi.getAllVehicles();
+					const { paginatedVehicles, total } =
+						await vehicleApi.getVehiclesByPage(activePage);
 
 					const filteredNames = driversNames.filter((driver) => {
 						return driver.value
@@ -25,7 +26,7 @@ export const useVehicles = (setLoading) => {
 							.includes(driverSelected.toUpperCase());
 					});
 
-					const filteredVehicles = res.filter((vehicle) => {
+					const filteredVehicles = paginatedVehicles.filter((vehicle) => {
 						for (const driver of filteredNames) {
 							if (driver.id === vehicle.driver_id) {
 								return vehicle;
@@ -33,13 +34,8 @@ export const useVehicles = (setLoading) => {
 						}
 					});
 
-					const limitedVehicles = filteredVehicles.slice(
-						activePage * 100 - 100,
-						activePage * 100
-					);
-
-					dispatch(setVehicles(limitedVehicles));
-					dispatch(setTotalPage(Math.ceil(filteredVehicles.length / 100)));
+					dispatch(setVehicles(filteredVehicles));
+					dispatch(setTotalPage(Math.ceil(total / 100)));
 					setLoading(false);
 				}
 			} catch (error) {

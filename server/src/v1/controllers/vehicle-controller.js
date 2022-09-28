@@ -1,10 +1,16 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-exports.getAllVehicles = async (req, res) => {
+exports.getVehiclesByPage = async (req, res) => {
 	try {
+		const { activePage } = req.params;
 		const vehicles = await prisma.vehicle.findMany();
-		res.status(200).json(vehicles);
+		const total = vehicles.length;
+		const paginatedVehicles = await prisma.vehicle.findMany({
+			skip: (parseInt(activePage) - 1) * 100,
+			take: 100,
+		});
+		res.status(200).json({ paginatedVehicles, total });
 	} catch (error) {
 		res.status(500).json({ error });
 	}
